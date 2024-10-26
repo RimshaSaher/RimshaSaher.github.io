@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB API</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --text-color: #1f2937;
+            --light-bg: #f3f4f6;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo Styling */
+         .logo-container {
+            display: flex;
+             align-items: center;
+        }
+
+         .logo-container .logo img {
+            height: 50px; /* Adjust logo height */
+            width: 50px; /* Ensure it's a square for perfect circle */
+            border-radius: 50%; /* Makes the image circular */
+            margin-right: var(--spacing-sm);
+        }
+
+        .logo-container .website-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333; /* Adjust text color */
+        }
+
+        /* Background Image for the First Tab */
+        .first-tab {
+            background-image: url('path/to/your/image.jpg'); /* Path to the background image */
+            background-size: cover;
+            background-position: center;
+            color: #fff; /* Adjust text color for visibility over the background */
+            padding: 20px; /* Adjust as needed */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Home Page */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .cta-button:hover {
+            background: var(--secondary-color);
+        }
+
+        .features {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* About Page */
+        .about {
+            padding: 8rem 1rem 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 60%;
+            border-radius: 10px;
+        }
+
+        /* Services Page */
+        .services {
+            padding: 8rem 1rem 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Page */
+        .contact {
+            padding: 8rem 1rem 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .submit-button {
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-button:hover {
+            background: var(--secondary-color);
+        }
+
+        .contact-info {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>  
+        <div class="logo-container">
+            <div class="website-name">Engineer Elite</div>
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+        </div>
+        
+        <div class="first-tab">
+            <h1>Welcome to the First Tab</h1>
+            <p>Your content here...</p>
+        </div>
+        
+            
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Our Website</h1>
+                <p>Discover amazing services and solutions for your needs</p>
+                <a href="#contact" class="cta-button">Get Started</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-rocket service-icon"></i>
+                    <h3>Fast Performance</h3>
+                    <p>Lightning-fast solutions for your business needs</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt service-icon"></i>
+                    <h3>Secure & Reliable</h3>
+                    <p>Your data is safe with our secure infrastructure</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset service-icon"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock support for your peace of mind</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="rimi.JPG" alt="About me">
+            </div>
+            <div class="about-text">
+                <h2>About me</h2>
+                <p>I am an enthusiastic AIML (Artificial Intelligence and Machine Learning) Engineering student with a strong passion for exploring cutting-edge technologies in AI, deep learning, and data science. I thrive on solving complex problems through innovative algorithms and enjoy working on projects that bridge theory and real-world applications. With a foundation in mathematics, programming, and data analysis, I am constantly refining my skills in areas such as neural networks, natural language processing, and computer vision. I am eager to contribute to impactful AI-driven solutions and collaborate with teams to build intelligent systems that make a difference.</p>
+                <p>I am an enthusiastic AIML (Artificial Intelligence and Machine Learning) Engineering student with a strong passion for exploring cutting-edge technologies in AI, deep learning, and data science.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Page -->
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-laptop-code service-icon"></i>
+                <h3>Web Development</h3>
+                <p>Custom websites and web applications</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-mobile-alt service-icon"></i>
+                <h3>Mobile Apps</h3>
+                <p>iOS and Android app development</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-paint-brush service-icon"></i>
+                <h3>UI/UX Design</h3>
+                <p>Beautiful and intuitive interfaces</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-chart-line service-icon"></i>
+                <h3>Digital Marketing</h3>
+                <p>Grow your online presence</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="contact">
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h2>Get in Touch</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <p><i class="fas fa-map-marker-alt"></i> Shimoga, Karnataka-577201</p>
+                <p><i class="fas fa-phone"></i> +91 7899786350</p>
+                <p><i class="fas fa-envelope"></i> saherrimsha08@gmail.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
